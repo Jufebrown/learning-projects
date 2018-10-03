@@ -62,3 +62,7 @@ typings/
 
 # python cache
 __pycache__/
+
+env
+
+.vscode
