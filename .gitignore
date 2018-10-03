@@ -63,6 +63,11 @@ typings/
 # python cache
 __pycache__/
 
-env
+django-rest-tutorial/env/Scripts
+django-rest-tutorial/env/Lib
+django-rest-tutorial/env/Include
+django-rest-tutorial/env/tcl
+django-rest-tutorial/env/
+
 
 .vscode
