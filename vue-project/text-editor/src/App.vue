@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <p>main page</p>
     <Editor/>
   </div>
 </template>
@@ -11,7 +12,8 @@ import Editor from './components/Editor.vue'
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    HelloWorld,
+    Editor
   }
 }
 </script>

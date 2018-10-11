@@ -1,15 +1,13 @@
 <template>
   <div class="richTextBox">
+    <p>textbox loaded</p>
     <iframe name="textBox"></iframe>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'RichTextBox',
-  props: {
-
-  }
+  name: 'RichTextBox'
 }
 </script>
 
