@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-    <HelloWorld msg=""/>
+    <Editor/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import Editor from './components/Editor.vue'
 
 export default {
   name: 'app',
