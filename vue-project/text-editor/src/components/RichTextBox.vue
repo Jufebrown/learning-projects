@@ -1,8 +1,5 @@
 <template>
-  <div class="richTextBox" contenteditable="true">
-    <p>textbox loaded</p>
-
-  </div>
+  <div class="richTextBox" contenteditable="true"></div>
 </template>
 
 <script>
@@ -16,5 +13,6 @@
   .richTextBox {
     width: 500px;
     height: 300px;
+    border: 1px solid black;
   }
 </style>
