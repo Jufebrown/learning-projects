@@ -1,25 +1,20 @@
 <template>
-  <div class="richTextBox">
+  <div class="richTextBox" contenteditable="true">
     <p>textbox loaded</p>
-    <iframe name="textBox"></iframe>
+
   </div>
 </template>
 
 <script>
   export default {
-    name: 'RichTextBox',
-    methods: {
-      enableEditMode () {
-        textBox.document.designMode = 'on';
-      }
-    },
-    beforemount() {
-      this.enableEditMode()
-    },
+    name: 'RichTextBox'
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .richTextBox {
+    width: 500px;
+    height: 300px;
+  }
 </style>
