@@ -40,5 +40,5 @@
 </script>
 
 <template>
-  <div ref="editor"></editor>
+  <div ref="editor"></div>
 </template>
