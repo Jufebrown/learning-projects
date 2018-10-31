@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <div id="app">
-      <quill-editor ref="myTextEditor" v-model="content" :config="editorOption">
+    <div id="editor">
+      <quill-editor ref="myTextEditor" class="editor" v-model="content" :config="editorOption">
       </quill-editor>
     </div>
   </div>
@@ -14,7 +14,7 @@ import { quillEditor } from 'vue-quill-editor'
 export default {
   data () {
     return {
-      name: 'app',
+      name: 'editor',
       content: '<h2>Example</h2>',
       editorOption: {}
     }
@@ -28,4 +28,9 @@ export default {
 
 <style>
   @import '../../node_modules/quill/dist/quill.snow.css';
+
+  .editor {
+    width: 60%;
+    height: 500px;
+  }
 </style>
