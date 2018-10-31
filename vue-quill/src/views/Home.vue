@@ -25,3 +25,7 @@ export default {
   }
 }
 </script>
+
+<style>
+  @import '../../node_modules/quill/dist/quill.snow.css';
+</style>
