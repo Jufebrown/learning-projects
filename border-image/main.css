@@ -1,6 +1,6 @@
 body {
   height: 90vh;
-  background-color: black;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,4 +10,6 @@ body {
   width: 200px;
   height: 200px;
   background-color: grey;
+  border: 50px solid transparent;
+  border-image: url("./assets/skull.png") 80 80 80 80 stretch;
 }
