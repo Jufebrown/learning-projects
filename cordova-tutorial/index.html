@@ -10,6 +10,9 @@
     <script src="./app/app.js"></script>
   </head>
   <body ng-controller="mainController">
-    <div id="main"></div>
+    <div id="main">
+      {{message}}
+      <button ng-click="captureImage()">Capture Image</button>
+    </div>
   </body>
 </html>
