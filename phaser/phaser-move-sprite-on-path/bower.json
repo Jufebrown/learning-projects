@@ -1,0 +1,20 @@
+{
+  "name": "phaser-move-sprite-on-path",
+  "homepage": "https://github.com/Jufebrown/phaser-move-sprite-on-path",
+  "authors": [
+    "Jufebrown <jufebrown@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "phaser": "^2.6.2"
+  }
+}
