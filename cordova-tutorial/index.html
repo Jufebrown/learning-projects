@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cordova App</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="./app/app.css">
     <script src="./node_modules/angular/angular.min.js"></script>
     <script src="./app/app.js"></script>
   </head>
   <body ng-controller="mainController">
     <div id="main">
-      {{message}}
-      <button ng-click="captureImage()">Capture Image</button>
+      <div style="height:100vh;background-color:#428bca;" class="jumbotron">
+        {{message}}
+        <button class="btn btn-default btn-lg btn-block verticleCenter" ng-click="captureImage()">Capture Image</button>
+      </div>
     </div>
   </body>
 </html>
