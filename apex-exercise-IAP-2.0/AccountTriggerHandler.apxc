@@ -9,7 +9,7 @@ public class AccountTriggerHandler {
             	acc.ShippingCountry = acc.BillingCountry;
         	}
             if (acc.BillingCountry == 'US' && acc.Phone.left(2) != '+1') {
-				acc.Phone = '+1' + acc.Phone;
+				acc.addError('US telephone numbers must be prefixed with the Country Code: +1.');
             }
         }
     }
