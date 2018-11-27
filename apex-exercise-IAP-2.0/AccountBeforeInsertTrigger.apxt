@@ -1,0 +1,3 @@
+trigger AccountBeforeInsertTrigger on Account (before insert) {
+	AccountTriggerHandler.setShippingAddress(Trigger.new);
+}
