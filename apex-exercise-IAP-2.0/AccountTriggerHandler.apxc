@@ -1,15 +1,18 @@
 public class AccountTriggerHandler {
     public static void setShippingAddress(List<account> newAccounts) {
         for (account acc : newAccounts) {
-        	if (acc.BillingCountry == 'US' || acc.BillingCountry == 'CA') {
+        	if ((acc.BillingCountry == 'US' || acc.BillingCountry == 'CA') && (acc.ShippingCity == null || acc.ShippingStreet == null)) {
             	acc.ShippingStreet = acc.BillingStreet;
             	acc.ShippingCity = acc.BillingCity;
             	acc.ShippingState = acc.BillingState;
             	acc.ShippingPostalCode = acc.BillingPostalCode;
             	acc.ShippingCountry = acc.BillingCountry;
         	}
-            if (acc.BillingCountry == 'US' && acc.Phone.left(2) != '+1') {
-				acc.addError('US telephone numbers must be prefixed with the Country Code: +1.');
+            if (acc.BillingCountry == 'US' && (acc.Phone.left(2) != '+1' || acc.Phone == null)) {
+				acc.Phone.addError('US telephone numbers must be prefixed with the Country Code: +1.');
+            }
+            if (acc.BillingCountry == 'US' && (acc.Fax.left(2) != '+1' || acc.Fax == null)) {
+				acc.Fax.addError('US telephone numbers must be prefixed with the Country Code: +1.');
             }
         }
     }
