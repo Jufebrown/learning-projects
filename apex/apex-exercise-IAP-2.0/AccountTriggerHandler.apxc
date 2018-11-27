@@ -8,10 +8,10 @@ public class AccountTriggerHandler {
             	acc.ShippingPostalCode = acc.BillingPostalCode;
             	acc.ShippingCountry = acc.BillingCountry;
         	}
-            if (acc.BillingCountry == 'US' && (acc.Phone.left(2) != '+1' || acc.Phone == null)) {
+            if (acc.BillingCountry == 'US' && (acc.Phone.left(2) != '+1' || acc.Phone != null)) {
 				acc.Phone.addError('US telephone numbers must be prefixed with the Country Code: +1.');
             }
-            if (acc.BillingCountry == 'US' && (acc.Fax.left(2) != '+1' || acc.Fax == null)) {
+            if (acc.BillingCountry == 'US' && (acc.Fax.left(2) != '+1' || acc.Fax != null)) {
 				acc.Fax.addError('US telephone numbers must be prefixed with the Country Code: +1.');
             }
         }
