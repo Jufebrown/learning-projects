@@ -24,19 +24,23 @@ public class AccountTriggerHandler {
                                                 Map<id, account> newMap, 
                                                 List<account> oldList, 
                                                 Map<id, account> oldMap) {
-		Map<id, account> changedMap = new Map<id, account>();
+		Map<id, account> discountChangedMap = new Map<id, account>();
+		Map<id, account> billingChangedMap = new Map<id, account>();
+
 		for (account a : newList) {
-			if(a.Discount__c != oldMap.get(a.id).Discount__c){
-				changedMap.put(a.id, a);
+			if(a.Discount__c != oldMap.get(a.id).Discount__c) {
+				discountChangedMap.put(a.id, a);
 			}
 		}
+
         List<opportunity> changedOpportunities = new List<opportunity>();
-        if(!changedMap.isEmpty()) {
+
+        if(!discountChangedMap.isEmpty()) {
             for (opportunity o : [Select Id, Discount__c, AccountId 
                             from opportunity 
-                            where account.id IN :changedMap.keyset()
+                            where account.id IN :discountChangedMap.keyset()
                             ]) {
-        		o.Discount__c = changedMap.get(o.AccountId).Discount__c;
+        		o.Discount__c = discountChangedMap.get(o.AccountId).Discount__c;
             	changedOpportunities.add(o);
 			}
             update changedOpportunities;
