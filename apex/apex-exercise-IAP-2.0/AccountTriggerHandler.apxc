@@ -51,16 +51,16 @@ public class AccountTriggerHandler {
         }
 		
         if(!billingChangedMap.isEmpty()) {
-            for (opportunity o : [Select Id, BillingCity, BillingState, BillingCountry, BillingStreet, BillingPostalCode, AccountId 
-                            FROM Contacts 
+            for (contact c : [Select Id, MailingCity, MailingState, MailingCountry, MailingStreet, MailingPostalCode, AccountId 
+                            FROM Contact
                             WHERE account.id IN :billingChangedMap.keyset()
                             ]) {
-        		o.BillingCity = billingChangedMap.get(o.AccountId).BillingCity;
-        		o.BillingCountry = billingChangedMap.get(o.AccountId).BillingCountry;
-        		o.BillingPostalCode = billingChangedMap.get(o.AccountId).BillingPostalCode;
-        		o.BillingState = billingChangedMap.get(o.AccountId).BillingState;
-        		o.BillingStreet = billingChangedMap.get(o.AccountId).BillingStreet;
-            	changedContacts.add(o);
+        		c.MailingCity = billingChangedMap.get(c.AccountId).BillingCity;
+        		c.MailingCountry = billingChangedMap.get(c.AccountId).BillingCountry;
+        		c.MailingPostalCode = billingChangedMap.get(c.AccountId).BillingPostalCode;
+        		c.MailingState = billingChangedMap.get(c.AccountId).BillingState;
+        		c.MailingStreet = billingChangedMap.get(c.AccountId).BillingStreet;
+            	changedContacts.add(c);
 			}
             update changedContacts;
         }  
