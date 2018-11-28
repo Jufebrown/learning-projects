@@ -31,9 +31,13 @@ public class AccountTriggerHandler {
 			if(a.Discount__c != oldMap.get(a.id).Discount__c) {
 				discountChangedMap.put(a.id, a);
 			}
+			if((a.BillingStreet != oldMap.get(a.id).BillingStreet) || (a.BillingCity != oldMap.get(a.id).BillingCity)) {
+				billingChangedMap.put(a.id, a);
+			}
 		}
 
         List<opportunity> changedOpportunities = new List<opportunity>();
+        List<contact> changedContacts = new List<contact>();
 
         if(!discountChangedMap.isEmpty()) {
             for (opportunity o : [Select Id, Discount__c, AccountId 
@@ -44,6 +48,21 @@ public class AccountTriggerHandler {
             	changedOpportunities.add(o);
 			}
             update changedOpportunities;
+        }
+		
+        if(!billingChangedMap.isEmpty()) {
+            for (opportunity o : [Select Id, BillingCity, BillingState, BillingCountry, BillingStreet, BillingPostalCode, AccountId 
+                            FROM Contacts 
+                            WHERE account.id IN :billingChangedMap.keyset()
+                            ]) {
+        		o.BillingCity = billingChangedMap.get(o.AccountId).BillingCity;
+        		o.BillingCountry = billingChangedMap.get(o.AccountId).BillingCountry;
+        		o.BillingPostalCode = billingChangedMap.get(o.AccountId).BillingPostalCode;
+        		o.BillingState = billingChangedMap.get(o.AccountId).BillingState;
+        		o.BillingStreet = billingChangedMap.get(o.AccountId).BillingStreet;
+            	changedContacts.add(o);
+			}
+            update changedContacts;
         }  
 	}
 }
