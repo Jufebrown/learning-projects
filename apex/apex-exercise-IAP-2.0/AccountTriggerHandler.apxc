@@ -16,24 +16,30 @@ public class AccountTriggerHandler {
             }
         }
     }
+    
+    // When a user updates an existing Account's Billing Address, 
+    // the new address should be copied over to the Mailing Address of each of the Contacts related to the Account.    
+    
     public static void AfterUpdate(List<account> newList, 
-                                                 Map<id, account> newMap, 
-                                                 List<account> oldList, 
-                                                 Map<id, account> oldMap) {
+                                                Map<id, account> newMap, 
+                                                List<account> oldList, 
+                                                Map<id, account> oldMap) {
 		Map<id, account> changedMap = new Map<id, account>();
 		for (account a : newList) {
 			if(a.Discount__c != oldMap.get(a.id).Discount__c){
 				changedMap.put(a.id, a);
 			}
 		}
-        List<opportunity> changedOpportunities = new List<opportunity>();                                       
-		for (opportunity o : [Select Id, Discount__c, AccountId 
-                              from opportunity 
-                              where account.id IN :changedMap.keyset()
-                             ]) {
-        	o.Discount__c = changedMap.get(o.AccountId).Discount__c;
-            changedOpportunities.add(o);
-		}
-        update changedOpportunities;
+        List<opportunity> changedOpportunities = new List<opportunity>();
+        if(!changedMap.isEmpty()) {
+            for (opportunity o : [Select Id, Discount__c, AccountId 
+                            from opportunity 
+                            where account.id IN :changedMap.keyset()
+                            ]) {
+        		o.Discount__c = changedMap.get(o.AccountId).Discount__c;
+            	changedOpportunities.add(o);
+			}
+            update changedOpportunities;
+        }  
 	}
 }
