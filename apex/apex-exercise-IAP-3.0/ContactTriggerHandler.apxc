@@ -1,0 +1,14 @@
+public class ContactTriggerHandler {
+
+// When a new Non-Primary Contact is created and the Account related to the new Contact
+// does not have any existing Contacts, the new Contact should automatically become the Account's Primary Contact.
+
+// When a new Contact is created as a Primary Contact, the system should check if the Account 
+// related to the new Contact does not yet have a Primary Contact. If the Account already has a Primary Contact, a message should be shown to the user stating: "Invalid Primary Contact. This Account has an existing Primary Contact.
+
+// When an existing Non-Primary Contact is updated to become a Primary Contact, the system 
+// should check if the Account related to the updated Contact does not yet have a Primary Contact. 
+// If the Account already has a Primary Contact, a message should be shown to the user 
+// stating: "Invalid Primary Contact. This Account has an existing Primary Contact.”
+
+}
