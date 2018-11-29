@@ -2,6 +2,10 @@ public class ContactTriggerHandler {
 
 	public static void beforeInsert(List<Contact> newList) {
 
+		AccountsWithoutContacts(newList);
+	}
+
+	private static void AccountsWithContacts(){
 		// generate set of AccountIds associated with contact being added
 		Set<Id> contactAccountIds = new Set<Id>();
 		for (Contact c : newList) {
@@ -9,20 +13,32 @@ public class ContactTriggerHandler {
 		}
 
 		// get any existing contacts associated with accountIds and add them to a map
-		Map<Id, Contact> contactMap =	new Map<Id, Contact>();
-		for (Contact c : [Select id, Primary_Contact__c, AccountId From Contact Where AccountId In :ContactAccountIds]) {
-			contactMap.put(AccountId, c);
-		}
+		Map<Id, Contact> contactMap = new Map<Id, Contact>([Select id, Primary_Contact__c, AccountId From Contact Where AccountId In :ContactAccountIds]);
 
 		// check to see if new contact is marked primary
 		for (Contact c : newList) {
 			// if new contact is non-primary
-			if (contactMap.get(c.accountId).isEmpty()) {
+			if (!contactMap.containsKey(c.accountId)) {
 				c.Primary_Contact__c = true;
 			}
-			// new contact is marked primary
-			else {
-				c.Primay_Contact__c.addError('Invalid Primary Contact. This Account has an existing Primary Contact.');
+		}
+	}
+
+	private static void AccountsWithoutContacts(List<Contact> newList){
+		// generate set of AccountIds associated with contact being added
+		Set<Id> contactAccountIds = new Set<Id>();
+		for (Contact c : newList) {
+			contactAccountIds.add(c.AccountId);
+		}
+
+		// get any existing contacts associated with accountIds and add them to a map
+		Map<Id, Contact> contactMap = new Map<Id, Contact>([Select id, Primary_Contact__c, AccountId From Contact Where AccountId In :ContactAccountIds]);
+
+		// check to see if new contact is marked primary
+		for (Contact c : newList) {
+			// if new contact is non-primary
+			if (!contactMap.containsKey(c.accountId)) {
+				c.Primary_Contact__c = true;
 			}
 		}
 	}
