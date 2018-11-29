@@ -1,0 +1,3 @@
+trigger ContactBeforeInsertTrigger on Contact (before insert) {
+	ContactTriggerHandler.beforeInsert(Trigger.new);
+}
