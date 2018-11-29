@@ -1,22 +1,35 @@
 public class ContactTriggerHandler {
 
-  public static void afterInsert(List<Contact> newList, Map<id, Contact> newMap) {
-    Map<id, Contact> primaryContactChangedMap = new Map<id, Contact>();
-    List<Contact> associatedContacts = [Select id, Primary_Contact__c
-                      From Contact
-                      Where AccountId
-                      In :newMap.keyset()];
-    
-		for (Contact c : associatedContacts) {
+	public static void beforeInsert(List<Contact> newList) {
+
+		// generate set of AccountIds associated with contact being added
+		Set<Id> contactAccountIds = new Set<Id>();
+		for (Contact c : newList) {
+			contactAccountIds.add(c.AccountId);
+		}
+
+		// get any existing contacts associated with accountIds and add them to a map
+		Map<Id, Contact> contactMap =	new Map<Id, Contact>();
+		for (Contact c : [Select id, Primary_Contact__c, AccountId From Contact Where AccountId In :ContactAccountIds]) {
+			contactMap.put(AccountId, c);
+		}
+
+		// check to see if new contact is marked primary
+		for (Contact c : newList) {
+			// if new contact is non-primary
+			if (contactMap.get(c.accountId).isEmpty()) {
+				c.Primary_Contact__c = true;
+			}
+			// new contact is marked primary
+			else {
+				c.Primay_Contact__c.addError('Invalid Primary Contact. This Account has an existing Primary Contact.');
+			}
+		}
+	}
+}
 
 // When a new Non-Primary Contact is created and the Account related to the new Contact
 // does not have any existing Contacts, the new Contact should automatically become the Account's Primary Contact.
-//			if(c.Primary_Contact__c != oldMap.get(c.id).Primary_Contact__c) {
-//				discountChangedMap.put(c.id, c);
-//			}
-		}
-  }
-
 
 // When a new Contact is created as a Primary Contact, the system should check if the Account 
 // related to the new Contact does not yet have a Primary Contact. If the Account already has a Primary Contact, a message should be shown to the user stating: "Invalid Primary Contact. This Account has an existing Primary Contact.
@@ -25,5 +38,3 @@ public class ContactTriggerHandler {
 // should check if the Account related to the updated Contact does not yet have a Primary Contact. 
 // If the Account already has a Primary Contact, a message should be shown to the user 
 // stating: "Invalid Primary Contact. This Account has an existing Primary Contact.”
-
-}
